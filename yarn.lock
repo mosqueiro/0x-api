@@ -25,17 +25,18 @@
     lodash "^4.17.11"
     valid-url "^1.0.9"
 
-"@0x/asset-swapper@0xProject/gitpkg-registry#0x-asset-swapper-v4.7.1-99f5be837":
-  version "4.7.1"
-  resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/e2292dd3b12fd3b2477808d9d03ae99910ade63e"
+"@0x/asset-swapper@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@0x/asset-swapper/-/asset-swapper-4.8.0.tgz#d2afb2f4509deaa8b1acee710eea20b02a24aebc"
+  integrity sha512-mMNW6SLf4hkC3DTFenovoQFTbHRkV3s63MdlTNqQTy69RCQ07WBeRtBs981y6e1BMqZul4KjbWp2ho7LVFzDFA==
   dependencies:
     "@0x/assert" "^3.0.13"
     "@0x/base-contract" "^6.2.7"
-    "@0x/contract-addresses" "^4.12.0"
-    "@0x/contract-wrappers" "^13.9.0"
+    "@0x/contract-addresses" "^5.0.0"
+    "@0x/contract-wrappers" "^13.9.1"
     "@0x/dev-utils" "^3.3.4"
     "@0x/json-schemas" "^5.2.3"
-    "@0x/order-utils" "^10.4.0"
+    "@0x/order-utils" "^10.4.1"
     "@0x/orderbook" "^2.2.7"
     "@0x/quote-server" "^3.1.0"
     "@0x/types" "^3.2.4"
@@ -91,15 +92,11 @@
     uuid "^3.3.2"
     websocket "^1.0.26"
 
-"@0x/contract-addresses@0xProject/gitpkg-registry#0x-contract-addresses-v4.11.0-3aaa0ad6b", "@0x/contract-addresses@^4.11.0", "@0x/contract-addresses@^4.12.0":
+"@0x/contract-addresses@0xProject/gitpkg-registry#0x-contract-addresses-v4.11.0-3aaa0ad6b", "@0x/contract-addresses@^4.11.0", "@0x/contract-addresses@^4.12.0", "@0x/contract-addresses@^5.0.0":
   version "4.11.0"
   resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/7eefc51756b7f4c5214181cf08fca1f028bd5696"
 
-"@0x/contract-addresses@0xProject/gitpkg-registry#0x-contract-addresses-v4.12.0-99f5be837":
-  version "4.12.0"
-  resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/8951e8bf656d18475fe5ae3c5a72aa0bf7ceb2cd"
-
-"@0x/contract-wrappers@0xProject/gitpkg-registry#0x-contract-wrappers-v13.8.0-2dc0bff1e", "@0x/contract-wrappers@^13.8.0", "@0x/contract-wrappers@^13.9.0":
+"@0x/contract-wrappers@0xProject/gitpkg-registry#0x-contract-wrappers-v13.8.0-2dc0bff1e", "@0x/contract-wrappers@^13.8.0", "@0x/contract-wrappers@^13.9.1":
   version "13.8.0"
   resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/06b1960b304a85bf04f355d945c31649359d58e9"
   dependencies:
@@ -435,6 +432,21 @@
     "@0x/json-schemas" "^5.1.0"
     "@0x/utils" "^5.5.1"
     "@0x/web3-wrapper" "^7.2.0"
+    ethereumjs-util "^5.1.1"
+    ethers "~4.0.4"
+    lodash "^4.17.11"
+
+"@0x/order-utils@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@0x/order-utils/-/order-utils-10.4.1.tgz#0fa5589ce2f03ebe35e533a4c5ea37c98f53385e"
+  integrity sha512-tvOmUbjRQ3Sff5w0Hf8GbQ3P2EIxhiS/h5fSg5E/AgypmIdZbdXoHor2yzmyZ4qQrDdULde5UkbUfYotZtwmzQ==
+  dependencies:
+    "@0x/assert" "^3.0.13"
+    "@0x/contract-addresses" "^5.0.0"
+    "@0x/contract-wrappers" "^13.9.1"
+    "@0x/json-schemas" "^5.2.3"
+    "@0x/utils" "^5.6.3"
+    "@0x/web3-wrapper" "^7.2.4"
     ethereumjs-util "^5.1.1"
     ethers "~4.0.4"
     lodash "^4.17.11"
