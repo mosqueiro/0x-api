@@ -95,6 +95,10 @@
   version "4.11.0"
   resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/7eefc51756b7f4c5214181cf08fca1f028bd5696"
 
+"@0x/contract-addresses@0xProject/gitpkg-registry#0x-contract-addresses-v4.12.0-99f5be837":
+  version "4.12.0"
+  resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/8951e8bf656d18475fe5ae3c5a72aa0bf7ceb2cd"
+
 "@0x/contract-wrappers@0xProject/gitpkg-registry#0x-contract-wrappers-v13.8.0-2dc0bff1e", "@0x/contract-wrappers@^13.8.0", "@0x/contract-wrappers@^13.9.0":
   version "13.8.0"
   resolved "https://codeload.github.com/0xProject/gitpkg-registry/tar.gz/06b1960b304a85bf04f355d945c31649359d58e9"
