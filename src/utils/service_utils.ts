@@ -21,7 +21,7 @@ import {
     ZERO,
 } from '../constants';
 import { logger } from '../logger';
-import { AffiliateFeeAmounts, GetSwapQuoteResponseLiquiditySource, PercentageFee } from '../types';
+import { AffiliateFeeAmounts, GetSwapQuoteResponseLiquiditySource, AffiliateFee } from '../types';
 import { orderUtils } from '../utils/order_utils';
 import { findTokenDecimalsIfExists } from '../utils/token_metadata_utils';
 
@@ -177,7 +177,7 @@ export const serviceUtils = {
             return [...acc, obj];
         }, []);
     },
-    getAffiliateFeeAmounts(quote: SwapQuote, fee: PercentageFee): AffiliateFeeAmounts {
+    getAffiliateFeeAmounts(quote: SwapQuote, fee: AffiliateFee): AffiliateFeeAmounts {
         const minBuyAmount = getSwapMinBuyAmount(quote);
         const buyTokenFeeAmount = minBuyAmount
             .times(fee.buyTokenPercentageFee)

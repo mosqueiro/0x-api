@@ -27,6 +27,7 @@ import { schemas } from '../schemas/schemas';
 import { SwapService } from '../services/swap_service';
 import { TokenMetadatasForChains } from '../token_metadatas_for_networks';
 import {
+    AffiliateFeeType,
     CalculateSwapQuoteParams,
     GetSwapPriceResponse,
     GetSwapQuoteRequestParams,
@@ -372,6 +373,7 @@ const parseGetSwapQuoteRequestParams = (
         ]);
     }
 
+    const feeType = req.query.feeType === undefined ? AffiliateFeeType.PercentageFee : req.query.feeType === 'slippage' ? AffiliateFeeType.PositiveSlippageFee : AffiliateFeeType.PercentageFee;
     const feeRecipient = req.query.feeRecipient as string;
     const sellTokenPercentageFee = Number.parseFloat(req.query.sellTokenPercentageFee as string) || 0;
     const buyTokenPercentageFee = Number.parseFloat(req.query.buyTokenPercentageFee as string) || 0;
@@ -395,11 +397,13 @@ const parseGetSwapQuoteRequestParams = (
     }
     const affiliateFee = feeRecipient
         ? {
+              feeType,
               recipient: feeRecipient,
               sellTokenPercentageFee,
               buyTokenPercentageFee,
           }
         : {
+              feeType,
               recipient: NULL_ADDRESS,
               sellTokenPercentageFee: 0,
               buyTokenPercentageFee: 0,

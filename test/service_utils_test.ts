@@ -5,6 +5,7 @@ import { BigNumber } from '@0x/utils';
 import 'mocha';
 
 import { AFFILIATE_FEE_TRANSFORMER_GAS, ZERO } from '../src/constants';
+import { AffiliateFeeType } from '../src/types';
 import { serviceUtils } from '../src/utils/service_utils';
 
 import { AFFILIATE_DATA_SELECTOR } from './constants';
@@ -76,6 +77,7 @@ describe(SUITE_NAME, () => {
     describe('getAffiliateFeeAmounts', () => {
         it('returns the correct amounts if the fee is zero', () => {
             const affiliateFee = {
+                feeType: AffiliateFeeType.PercentageFee,
                 recipient: '',
                 buyTokenPercentageFee: 0,
                 sellTokenPercentageFee: 0,
@@ -89,6 +91,7 @@ describe(SUITE_NAME, () => {
         });
         it('returns the correct amounts if the fee is non-zero', () => {
             const affiliateFee = {
+                feeType: AffiliateFeeType.PercentageFee,
                 recipient: '',
                 buyTokenPercentageFee: 0.01,
                 sellTokenPercentageFee: 0,

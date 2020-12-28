@@ -1,5 +1,5 @@
 import {
-    AffiliateFee,
+    AffiliateFeeAmount,
     AssetSwapperContractAddresses,
     ERC20BridgeSource,
     ExtensionContractType,
@@ -53,7 +53,7 @@ import {
     CalculateSwapQuoteParams,
     GetSwapQuoteResponse,
     GetTokenPricesResponse,
-    PercentageFee,
+    AffiliateFee,
     SwapQuoteResponsePartialTransaction,
     TokenMetadata,
     TokenMetadataOptionalSymbol,
@@ -76,7 +76,7 @@ export class SwapService {
         buyTokenDecimals: number,
         sellTokenDecimals: number,
         swapQuote: SwapQuote,
-        affiliateFee: PercentageFee,
+        affiliateFee: AffiliateFee,
     ): { price: BigNumber; guaranteedPrice: BigNumber } {
         const { makerAssetAmount, totalTakerAssetAmount } = swapQuote.bestCaseQuoteInfo;
         const { totalTakerAssetAmount: guaranteedTotalTakerAssetAmount } = swapQuote.worstCaseQuoteInfo;
@@ -186,7 +186,7 @@ export class SwapService {
             isMetaTransaction,
             shouldSellEntireBalance,
             affiliateAddress,
-            { recipient: affiliateFee.recipient, buyTokenFeeAmount, sellTokenFeeAmount },
+            { recipient: affiliateFee.recipient, feeType: affiliateFee.feeType, buyTokenFeeAmount, sellTokenFeeAmount },
         );
 
         let conservativeBestCaseGasEstimate = new BigNumber(worstCaseGas)
@@ -644,7 +644,7 @@ export class SwapService {
         isMetaTransaction: boolean,
         shouldSellEntireBalance: boolean,
         affiliateAddress: string | undefined,
-        affiliateFee: AffiliateFee,
+        affiliateFee: AffiliateFeeAmount,
     ): Promise<SwapQuoteResponsePartialTransaction> {
         const opts: Partial<SwapQuoteGetOutputOpts> = {
             useExtensionContract: ExtensionContractType.ExchangeProxy,
