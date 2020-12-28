@@ -376,7 +376,7 @@ const parseGetSwapQuoteRequestParams = (
     const feeType =
         req.query.feeType === undefined
             ? AffiliateFeeType.PercentageFee
-            : req.query.feeType === 'slippage'
+            : req.query.feeType === 'positive-slippage'
             ? AffiliateFeeType.PositiveSlippageFee
             : AffiliateFeeType.PercentageFee;
     const feeRecipient = req.query.feeRecipient as string;
@@ -400,6 +400,23 @@ const parseGetSwapQuoteRequestParams = (
             },
         ]);
     }
+
+    // can't have percentage fee and positive slippage fee at the same time
+    if (buyTokenPercentageFee && feeType === AffiliateFeeType.PositiveSlippageFee) {
+        throw new ValidationError([
+            {
+                field: 'buyTokenPercentageFee',
+                code: ValidationErrorCodes.UnsupportedOption,
+                reason: ValidationErrorReasons.MultipleFeeTypesUsed,
+            },
+            {
+                field: 'feeType',
+                code: ValidationErrorCodes.UnsupportedOption,
+                reason: ValidationErrorReasons.MultipleFeeTypesUsed,
+            },
+        ]);
+    }
+
     const affiliateFee = feeRecipient
         ? {
               feeType,
