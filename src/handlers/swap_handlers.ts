@@ -373,7 +373,12 @@ const parseGetSwapQuoteRequestParams = (
         ]);
     }
 
-    const feeType = req.query.feeType === undefined ? AffiliateFeeType.PercentageFee : req.query.feeType === 'slippage' ? AffiliateFeeType.PositiveSlippageFee : AffiliateFeeType.PercentageFee;
+    const feeType =
+        req.query.feeType === undefined
+            ? AffiliateFeeType.PercentageFee
+            : req.query.feeType === 'slippage'
+            ? AffiliateFeeType.PositiveSlippageFee
+            : AffiliateFeeType.PercentageFee;
     const feeRecipient = req.query.feeRecipient as string;
     const sellTokenPercentageFee = Number.parseFloat(req.query.sellTokenPercentageFee as string) || 0;
     const buyTokenPercentageFee = Number.parseFloat(req.query.buyTokenPercentageFee as string) || 0;
