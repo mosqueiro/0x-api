@@ -74,13 +74,14 @@ describe(SUITE_NAME, () => {
             expect(randomId).to.match(/[0-9A-Fa-f]{10}/);
         });
     });
-    describe('getAffiliateFeeAmounts', () => {
+    describe.only('getAffiliateFeeAmounts', () => {
         it('returns the correct amounts if the fee is zero', () => {
             const affiliateFee = {
                 feeType: AffiliateFeeType.PercentageFee,
                 recipient: '',
                 buyTokenPercentageFee: 0,
                 sellTokenPercentageFee: 0,
+                positiveSlippageThresholdAmount: 0,
             };
             const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
             expect(costInfo).to.deep.equal({
@@ -95,6 +96,7 @@ describe(SUITE_NAME, () => {
                 recipient: '',
                 buyTokenPercentageFee: 0.01,
                 sellTokenPercentageFee: 0,
+                positiveSlippageThresholdAmount: 0,
             };
             const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
             expect(costInfo).to.deep.equal({
@@ -102,6 +104,21 @@ describe(SUITE_NAME, () => {
                     .times(affiliateFee.buyTokenPercentageFee)
                     .dividedBy(affiliateFee.buyTokenPercentageFee + 1)
                     .integerValue(BigNumber.ROUND_DOWN),
+                sellTokenFeeAmount: ZERO,
+                gasCost: AFFILIATE_FEE_TRANSFORMER_GAS,
+            });
+        });
+        it('returns the correct amounts if the positive slippage fee is non-zero', () => {
+            const affiliateFee = {
+                feeType: AffiliateFeeType.PositiveSlippageFee,
+                recipient: '',
+                buyTokenPercentageFee: 0,
+                sellTokenPercentageFee: 0,
+                positiveSlippageThresholdAmount: 1,
+            };
+            const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
+            expect(costInfo).to.deep.equal({
+                buyTokenFeeAmount: ZERO,
                 sellTokenFeeAmount: ZERO,
                 gasCost: AFFILIATE_FEE_TRANSFORMER_GAS,
             });

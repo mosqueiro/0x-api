@@ -186,7 +186,7 @@ export class SwapService {
             isMetaTransaction,
             shouldSellEntireBalance,
             affiliateAddress,
-            { recipient: affiliateFee.recipient, feeType: affiliateFee.feeType, buyTokenFeeAmount, sellTokenFeeAmount },
+            { recipient: affiliateFee.recipient, feeType: affiliateFee.feeType, buyTokenFeeAmount, sellTokenFeeAmount, positiveSlippageThresholdAmount: new BigNumber(affiliateFee.positiveSlippageThresholdAmount) },
         );
 
         let conservativeBestCaseGasEstimate = new BigNumber(worstCaseGas)
@@ -600,6 +600,7 @@ export class SwapService {
         // only generate quote reports for rfqt firm quotes or when price comparison is requested
         const shouldGenerateQuoteReport = includePriceComparisons || (rfqt && rfqt.intentOnFilling);
 
+        // TODO:(Romain): should we not use the same logic to know if VIP cant be used or not
         const swapQuoteRequestOpts: Partial<SwapQuoteRequestOpts> =
             isMetaTransaction || affiliateFee.buyTokenPercentageFee > 0 || affiliateFee.sellTokenPercentageFee > 0
                 ? ASSET_SWAPPER_MARKET_ORDERS_OPTS_NO_VIP

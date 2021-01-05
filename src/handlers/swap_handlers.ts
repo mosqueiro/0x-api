@@ -382,6 +382,7 @@ const parseGetSwapQuoteRequestParams = (
     const feeRecipient = req.query.feeRecipient as string;
     const sellTokenPercentageFee = Number.parseFloat(req.query.sellTokenPercentageFee as string) || 0;
     const buyTokenPercentageFee = Number.parseFloat(req.query.buyTokenPercentageFee as string) || 0;
+    const positiveSlippageThresholdAmount = Number.parseFloat(req.query.positiveSlippageThresholdAmount as string) || 0;
     if (sellTokenPercentageFee > 0) {
         throw new ValidationError([
             {
@@ -400,21 +401,31 @@ const parseGetSwapQuoteRequestParams = (
             },
         ]);
     }
-
-    // can't have percentage fee and positive slippage fee at the same time
-    if (buyTokenPercentageFee && feeType === AffiliateFeeType.PositiveSlippageFee) {
-        throw new ValidationError([
-            {
-                field: 'buyTokenPercentageFee',
-                code: ValidationErrorCodes.UnsupportedOption,
-                reason: ValidationErrorReasons.MultipleFeeTypesUsed,
-            },
-            {
-                field: 'feeType',
-                code: ValidationErrorCodes.UnsupportedOption,
-                reason: ValidationErrorReasons.MultipleFeeTypesUsed,
-            },
-        ]);
+    if (feeType === AffiliateFeeType.PositiveSlippageFee) {
+        // can't have percentage fee and positive slippage fee at the same time
+        if (buyTokenPercentageFee) {
+            throw new ValidationError([
+                {
+                    field: 'buyTokenPercentageFee',
+                    code: ValidationErrorCodes.UnsupportedOption,
+                    reason: ValidationErrorReasons.MultipleFeeTypesUsed,
+                },
+                {
+                    field: 'feeType',
+                    code: ValidationErrorCodes.UnsupportedOption,
+                    reason: ValidationErrorReasons.MultipleFeeTypesUsed,
+                },
+            ]);
+        }
+        if (positiveSlippageThresholdAmount <= 0) {
+            throw new ValidationError([
+                {
+                    field: 'buyTokenPercentageFee',
+                    code: ValidationErrorCodes.UnsupportedOption,
+                    reason: ValidationErrorReasons.PositiveSlippageThresholdAmountInvalid,
+                },
+            ]);
+        }
     }
 
     const affiliateFee = feeRecipient
@@ -423,12 +434,14 @@ const parseGetSwapQuoteRequestParams = (
               recipient: feeRecipient,
               sellTokenPercentageFee,
               buyTokenPercentageFee,
+              positiveSlippageThresholdAmount,
           }
         : {
               feeType,
               recipient: NULL_ADDRESS,
               sellTokenPercentageFee: 0,
               buyTokenPercentageFee: 0,
+              positiveSlippageThresholdAmount: 0,
           };
 
     const apiKey: string | undefined = req.header('0x-api-key');

@@ -150,6 +150,7 @@ export enum ValidationErrorReasons {
     RequiresIntentOnFilling = 'REQUIRES_INTENT_ON_FILLING',
     UnfillableRequiresMakerAddress = 'MAKER_ADDRESS_REQUIRED_TO_FETCH_UNFILLABLE_ORDERS',
     MultipleFeeTypesUsed = 'MULTIPLE_FEE_TYPES_USED',
+    PositiveSlippageThresholdAmountInvalid = 'POSITIVE_SLIPPAGE_THRESHOLD_AMOUNT_INVALID',
 }
 export abstract class AlertError {
     public abstract message: string;
