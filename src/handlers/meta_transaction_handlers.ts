@@ -408,14 +408,14 @@ const parseGetTransactionRequestParams = (req: express.Request): GetTransactionR
               recipient: feeRecipient,
               sellTokenPercentageFee,
               buyTokenPercentageFee,
-              positiveSlippageThresholdAmount: 0, // TODO(romain): positive slipapge fee possible for metaTx?
+              positiveSlippageFeeThresholdAmount: 0, // TODO(romain): positive slipapge fee possible for metaTx?
           }
         : {
               feeType: AffiliateFeeType.PercentageFee,
               recipient: NULL_ADDRESS,
               sellTokenPercentageFee: 0,
               buyTokenPercentageFee: 0,
-              positiveSlippageThresholdAmount: 0,
+              positiveSlippageFeeThresholdAmount: 0,
           };
 
     const affiliateAddress = req.query.affiliateAddress as string | undefined;

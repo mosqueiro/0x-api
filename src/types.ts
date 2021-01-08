@@ -434,7 +434,7 @@ export interface AffiliateFee {
     recipient: string;
     sellTokenPercentageFee: number;
     buyTokenPercentageFee: number;
-    positiveSlippageThresholdAmount: number;
+    positiveSlippageFeeThresholdAmount: number;
 }
 
 interface SwapQuoteParamsBase {

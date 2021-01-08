@@ -186,7 +186,10 @@ export const serviceUtils = {
         return {
             sellTokenFeeAmount: ZERO,
             buyTokenFeeAmount,
-            gasCost: buyTokenFeeAmount.isZero() && fee.positiveSlippageThresholdAmount === 0 ? ZERO : AFFILIATE_FEE_TRANSFORMER_GAS,
+            gasCost:
+                buyTokenFeeAmount.isZero() && fee.positiveSlippageFeeThresholdAmount === 0
+                    ? ZERO
+                    : AFFILIATE_FEE_TRANSFORMER_GAS,
         };
     },
 };

@@ -81,7 +81,7 @@ describe(SUITE_NAME, () => {
                 recipient: '',
                 buyTokenPercentageFee: 0,
                 sellTokenPercentageFee: 0,
-                positiveSlippageThresholdAmount: 0,
+                positiveSlippageFeeThresholdAmount: 0,
             };
             const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
             expect(costInfo).to.deep.equal({
@@ -96,7 +96,7 @@ describe(SUITE_NAME, () => {
                 recipient: '',
                 buyTokenPercentageFee: 0.01,
                 sellTokenPercentageFee: 0,
-                positiveSlippageThresholdAmount: 0,
+                positiveSlippageFeeThresholdAmount: 0,
             };
             const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
             expect(costInfo).to.deep.equal({
@@ -114,7 +114,7 @@ describe(SUITE_NAME, () => {
                 recipient: '',
                 buyTokenPercentageFee: 0,
                 sellTokenPercentageFee: 0,
-                positiveSlippageThresholdAmount: 1,
+                positiveSlippageFeeThresholdAmount: 1,
             };
             const costInfo = serviceUtils.getAffiliateFeeAmounts(randomSellQuote, affiliateFee);
             expect(costInfo).to.deep.equal({

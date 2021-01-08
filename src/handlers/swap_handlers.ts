@@ -382,7 +382,8 @@ const parseGetSwapQuoteRequestParams = (
     const feeRecipient = req.query.feeRecipient as string;
     const sellTokenPercentageFee = Number.parseFloat(req.query.sellTokenPercentageFee as string) || 0;
     const buyTokenPercentageFee = Number.parseFloat(req.query.buyTokenPercentageFee as string) || 0;
-    const positiveSlippageThresholdAmount = Number.parseFloat(req.query.positiveSlippageThresholdAmount as string) || 0;
+    const positiveSlippageFeeThresholdAmount =
+        Number.parseFloat(req.query.positiveSlippageFeeThresholdAmount as string) || 0;
     if (sellTokenPercentageFee > 0) {
         throw new ValidationError([
             {
@@ -417,12 +418,12 @@ const parseGetSwapQuoteRequestParams = (
                 },
             ]);
         }
-        if (positiveSlippageThresholdAmount <= 0) {
+        if (positiveSlippageFeeThresholdAmount <= 0) {
             throw new ValidationError([
                 {
                     field: 'buyTokenPercentageFee',
                     code: ValidationErrorCodes.UnsupportedOption,
-                    reason: ValidationErrorReasons.PositiveSlippageThresholdAmountInvalid,
+                    reason: ValidationErrorReasons.PositiveSlippageFeeThresholdAmountInvalid,
                 },
             ]);
         }
@@ -434,14 +435,14 @@ const parseGetSwapQuoteRequestParams = (
               recipient: feeRecipient,
               sellTokenPercentageFee,
               buyTokenPercentageFee,
-              positiveSlippageThresholdAmount,
+              positiveSlippageFeeThresholdAmount,
           }
         : {
               feeType,
               recipient: NULL_ADDRESS,
               sellTokenPercentageFee: 0,
               buyTokenPercentageFee: 0,
-              positiveSlippageThresholdAmount: 0,
+              positiveSlippageFeeThresholdAmount: 0,
           };
 
     const apiKey: string | undefined = req.header('0x-api-key');

@@ -186,7 +186,13 @@ export class SwapService {
             isMetaTransaction,
             shouldSellEntireBalance,
             affiliateAddress,
-            { recipient: affiliateFee.recipient, feeType: affiliateFee.feeType, buyTokenFeeAmount, sellTokenFeeAmount, positiveSlippageThresholdAmount: new BigNumber(affiliateFee.positiveSlippageThresholdAmount) },
+            {
+                recipient: affiliateFee.recipient,
+                feeType: affiliateFee.feeType,
+                buyTokenFeeAmount,
+                sellTokenFeeAmount,
+                positiveSlippageFeeThresholdAmount: new BigNumber(affiliateFee.positiveSlippageFeeThresholdAmount),
+            },
         );
 
         let conservativeBestCaseGasEstimate = new BigNumber(worstCaseGas)
