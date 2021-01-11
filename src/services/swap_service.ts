@@ -191,7 +191,6 @@ export class SwapService {
                 feeType: affiliateFee.feeType,
                 buyTokenFeeAmount,
                 sellTokenFeeAmount,
-                positiveSlippageFeeThresholdAmount: new BigNumber(affiliateFee.positiveSlippageFeeThresholdAmount),
             },
         );
 
