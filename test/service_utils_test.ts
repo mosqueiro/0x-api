@@ -5,6 +5,9 @@ import { BigNumber } from '@0x/utils';
 import 'mocha';
 
 import { AFFILIATE_FEE_TRANSFORMER_GAS, ZERO } from '../src/constants';
+import {
+    POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS
+} from '@0x/asset-swapper/lib/src/constants'
 import { AffiliateFeeType } from '../src/types';
 import { serviceUtils } from '../src/utils/service_utils';
 
@@ -74,7 +77,7 @@ describe(SUITE_NAME, () => {
             expect(randomId).to.match(/[0-9A-Fa-f]{10}/);
         });
     });
-    describe.only('getAffiliateFeeAmounts', () => {
+    describe('getAffiliateFeeAmounts', () => {
         it('returns the correct amounts if the fee is zero', () => {
             const affiliateFee = {
                 feeType: AffiliateFeeType.PercentageFee,
@@ -117,7 +120,7 @@ describe(SUITE_NAME, () => {
             expect(costInfo).to.deep.equal({
                 buyTokenFeeAmount: ZERO,
                 sellTokenFeeAmount: ZERO,
-                gasCost: AFFILIATE_FEE_TRANSFORMER_GAS,
+                gasCost: POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS,
             });
         });
     });
