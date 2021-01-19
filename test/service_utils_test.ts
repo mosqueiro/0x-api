@@ -5,9 +5,7 @@ import { BigNumber } from '@0x/utils';
 import 'mocha';
 
 import { AFFILIATE_FEE_TRANSFORMER_GAS, ZERO } from '../src/constants';
-import {
-    POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS
-} from '@0x/asset-swapper/lib/src/constants'
+import { POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS } from '@0x/asset-swapper/lib/src/constants';
 import { AffiliateFeeType } from '../src/types';
 import { serviceUtils } from '../src/utils/service_utils';
 

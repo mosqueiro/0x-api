@@ -21,9 +21,7 @@ import {
     PERCENTAGE_SIG_DIGITS,
     ZERO,
 } from '../constants';
-import {
-    POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS
-} from '@0x/asset-swapper/lib/src/constants'
+import { POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS } from '@0x/asset-swapper/lib/src/constants';
 import { logger } from '../logger';
 import { AffiliateFeeAmounts, GetSwapQuoteResponseLiquiditySource, AffiliateFee } from '../types';
 import { orderUtils } from '../utils/order_utils';
