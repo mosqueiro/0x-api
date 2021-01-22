@@ -425,6 +425,7 @@ export interface SourceComparison {
 }
 
 export enum AffiliateFeeType {
+    None,
     PercentageFee,
     PositiveSlippageFee,
 }

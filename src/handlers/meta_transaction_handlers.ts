@@ -410,7 +410,7 @@ const parseGetTransactionRequestParams = (req: express.Request): GetTransactionR
               buyTokenPercentageFee,
           }
         : {
-              feeType: AffiliateFeeType.PercentageFee,
+              feeType: AffiliateFeeType.None,
               recipient: NULL_ADDRESS,
               sellTokenPercentageFee: 0,
               buyTokenPercentageFee: 0,

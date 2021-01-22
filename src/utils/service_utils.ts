@@ -186,10 +186,9 @@ export const serviceUtils = {
             .dividedBy(fee.buyTokenPercentageFee + 1)
             .integerValue(BigNumber.ROUND_DOWN);
         let gasCost = ZERO;
-        if (!buyTokenFeeAmount.isZero()) {
+        if (fee.feeType === AffiliateFeeType.PercentageFee) {
             gasCost = AFFILIATE_FEE_TRANSFORMER_GAS;
-        }
-        if (fee.feeType === AffiliateFeeType.PositiveSlippageFee) {
+        } else if (fee.feeType === AffiliateFeeType.PositiveSlippageFee) {
             gasCost = POSITIVE_SLIPPAGE_FEE_TRANSFORMER_GAS;
         }
         return {

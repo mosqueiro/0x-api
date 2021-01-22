@@ -373,12 +373,6 @@ const parseGetSwapQuoteRequestParams = (
         ]);
     }
 
-    const feeType =
-        req.query.feeType === undefined
-            ? AffiliateFeeType.PercentageFee
-            : req.query.feeType === 'positive-slippage'
-            ? AffiliateFeeType.PositiveSlippageFee
-            : AffiliateFeeType.PercentageFee;
     const feeRecipient = req.query.feeRecipient as string;
     const sellTokenPercentageFee = Number.parseFloat(req.query.sellTokenPercentageFee as string) || 0;
     const buyTokenPercentageFee = Number.parseFloat(req.query.buyTokenPercentageFee as string) || 0;
@@ -400,6 +394,14 @@ const parseGetSwapQuoteRequestParams = (
             },
         ]);
     }
+
+    let feeType = AffiliateFeeType.None;
+    if (req.query.feeType === 'positive-slippage') {
+        feeType = AffiliateFeeType.PositiveSlippageFee;
+    } else if (buyTokenPercentageFee > 0) {
+        feeType = AffiliateFeeType.PercentageFee;
+    }
+
     if (feeType === AffiliateFeeType.PositiveSlippageFee) {
         // can't have percentage fee and positive slippage fee at the same time
         if (buyTokenPercentageFee) {
@@ -416,6 +418,16 @@ const parseGetSwapQuoteRequestParams = (
                 },
             ]);
         }
+    }
+
+    if (feeType !== AffiliateFeeType.None && feeRecipient === undefined) {
+        throw new ValidationError([
+            {
+                field: 'feeRecipient',
+                code: ValidationErrorCodes.UnsupportedOption,
+                reason: ValidationErrorReasons.FeeRecipientMissing,
+            },
+        ]);
     }
 
     const affiliateFee = feeRecipient
