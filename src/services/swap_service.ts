@@ -271,14 +271,14 @@ export class SwapService {
         // No allowance target is needed if this is an ETH sell, so set to 0x000..
         const allowanceTarget = isETHSell ? NULL_ADDRESS : this._contractAddresses.exchangeProxy;
 
-        const { takerAssetToEthRate, makerAssetToEthRate } = swapQuote;
+        const { ethToTakerAssetRate, ethToMakerAssetRate } = swapQuote;
 
         // Convert into unit amounts
         const wethToken = getTokenMetadataIfExists('WETH', CHAIN_ID)!;
-        const sellTokenToEthRate = takerAssetToEthRate
+        const sellTokenToEthRate = ethToTakerAssetRate
             .times(new BigNumber(10).pow(wethToken.decimals - takerTokenDecimals))
             .decimalPlaces(takerTokenDecimals);
-        const buyTokenToEthRate = makerAssetToEthRate
+        const buyTokenToEthRate = ethToMakerAssetRate
             .times(new BigNumber(10).pow(wethToken.decimals - makerTokenDecimals))
             .decimalPlaces(makerTokenDecimals);
 
