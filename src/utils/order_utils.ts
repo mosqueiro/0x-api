@@ -35,7 +35,7 @@ import {
     APIOrderWithMetaData,
     PinResult,
     RawPool,
-    SignedOrderV4,
+    SignedLimitOrder,
     SRAGetOrdersRequestOpts,
 } from '../types';
 
@@ -100,7 +100,7 @@ export const orderUtils = {
         }
         return accumulator;
     },
-    compareAskOrder: (orderA: SignedOrderV4, orderB: SignedOrderV4): number => {
+    compareAskOrder: (orderA: SignedLimitOrder, orderB: SignedLimitOrder): number => {
         const orderAPrice = orderA.takerAmount.div(orderA.makerAmount);
         const orderBPrice = orderB.takerAmount.div(orderB.makerAmount);
         if (!orderAPrice.isEqualTo(orderBPrice)) {
@@ -108,7 +108,7 @@ export const orderUtils = {
         }
         return orderUtils.compareOrderByFeeRatio(orderA, orderB);
     },
-    compareBidOrder: (orderA: SignedOrderV4, orderB: SignedOrderV4): number => {
+    compareBidOrder: (orderA: SignedLimitOrder, orderB: SignedLimitOrder): number => {
         const orderAPrice = orderA.makerAmount.div(orderA.takerAmount);
         const orderBPrice = orderB.makerAmount.div(orderB.takerAmount);
         if (!orderAPrice.isEqualTo(orderBPrice)) {
@@ -116,7 +116,7 @@ export const orderUtils = {
         }
         return orderUtils.compareOrderByFeeRatio(orderA, orderB);
     },
-    compareOrderByFeeRatio: (orderA: SignedOrderV4, orderB: SignedOrderV4): number => {
+    compareOrderByFeeRatio: (orderA: SignedLimitOrder, orderB: SignedLimitOrder): number => {
         const orderAFeePrice = orderA.takerTokenFeeAmount.div(orderA.takerAmount);
         const orderBFeePrice = orderB.takerTokenFeeAmount.div(orderB.takerAmount);
         if (!orderAFeePrice.isEqualTo(orderBFeePrice)) {
@@ -136,8 +136,8 @@ export const orderUtils = {
     },
     deserializeOrder: (
         signedOrderEntity: Required<SignedOrderV4Entity | PersistentSignedOrderV4Entity>,
-    ): SignedOrderV4 => {
-        const signedOrder: SignedOrderV4 = {
+    ): SignedLimitOrder => {
+        const signedOrder: SignedLimitOrder = {
             signature: orderUtils.deserializeSignature(signedOrderEntity.signature),
             sender: signedOrderEntity.sender,
             maker: signedOrderEntity.maker,
@@ -247,11 +247,11 @@ export const orderUtils = {
     filterOrders: (apiOrders: APIOrderWithMetaData[], filters: SRAGetOrdersRequestOpts): APIOrderWithMetaData[] => {
         // TODO(kimpers): Clean up filters and naming
         const { sender, takerToken, makerToken } = filters;
-        const matchTraderAddress = (order: SignedOrderV4, filterAddress?: string): boolean =>
+        const matchTraderAddress = (order: SignedLimitOrder, filterAddress?: string): boolean =>
             filterAddress ? order.maker === filterAddress || order.taker === filterAddress : true;
-        const matchMakerTokenAddress = (order: SignedOrderV4, filterAddress?: string): boolean =>
+        const matchMakerTokenAddress = (order: SignedLimitOrder, filterAddress?: string): boolean =>
             filterAddress ? order.makerToken === filterAddress : true;
-        const matchTakerTokenAddress = (order: SignedOrderV4, filterAddress?: string): boolean =>
+        const matchTakerTokenAddress = (order: SignedLimitOrder, filterAddress?: string): boolean =>
             filterAddress ? order.takerToken === filterAddress : true;
         const filteredOrders = apiOrders.filter(apiOrder => {
             const o = apiOrder.order;
@@ -266,7 +266,7 @@ export const orderUtils = {
     // splitOrdersByPinning splits the orders into those we wish to pin in our Mesh node and
     // those we wish not to pin. We wish to pin the orders of MMers with a lot of ZRX at stake and
     // who have a track record of acting benevolently.
-    async splitOrdersByPinningAsync(connection: Connection, signedOrders: SignedOrderV4[]): Promise<PinResult> {
+    async splitOrdersByPinningAsync(connection: Connection, signedOrders: SignedLimitOrder[]): Promise<PinResult> {
         let currentPools = [];
         // HACK(jalextowle): This query will fail when running against Ganache, so we
         // skip it an only use pinned MMers. A deployed staking system that allows this
