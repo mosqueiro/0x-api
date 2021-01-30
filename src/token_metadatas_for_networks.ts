@@ -20,6 +20,16 @@ export interface TokenMetadataAndChainAddresses {
 // tslint:disable:max-file-line-count
 export const TokenMetadatasForChains: TokenMetadataAndChainAddresses[] = [
     {
+        symbol: 'WZCR',
+        name: 'Wrapped ZCore',
+        decimals: 18,
+        tokenAddresses: {
+            [ChainId.Mainnet]: '0x72896d5478ad86b14a6d4f6e7441740d4970083d',
+            [ChainId.Kovan]: '0x72896d5478ad86b14a6d4f6e7441740d4970083d',
+            [ChainId.Ganache]: '0x72896d5478ad86b14a6d4f6e7441740d4970083d',
+        },
+    },
+    {
         symbol: 'DAI',
         name: 'Dai Stablecoin',
         decimals: 18,
